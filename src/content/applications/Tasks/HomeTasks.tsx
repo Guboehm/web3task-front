@@ -7,6 +7,7 @@ import usePagination from "src/components/Pagination";
 import SearchFilters from "src/components/Task/SearchFiltersTasks";
 import { useSearchFilters } from "src/hooks/useSearchFilters";
 import { Helmet } from "react-helmet-async";
+import { useConnect } from 'wagmi';
 
 const HomeTasks = () => {
     const taskService = useTaskService();
@@ -20,6 +21,7 @@ const HomeTasks = () => {
     const [maxTasks, setMaxTasks] = useState<number>(20);
     const [minimumTasks, setMinimumTasks] = useState<number>(1);
     const { currentPage, Pagination } = usePagination();
+    const { isConnected } = useConnect();
 
     const fetchData = async () => {
         try {
@@ -60,17 +62,26 @@ const HomeTasks = () => {
                 <Box>
                     <Grid display={'flex'} spacing={1} ml={mdDown ? -3 : 15} style={{ width: '92%' }} >
                         <Grid item xs={mdDown ? 4 : 2} ml={smDown && 1.5} mt={5} display={'flex'}>
-                            <SearchFilters maxReward={maxReward} />
+                            {isConnected && <SearchFilters maxReward={maxReward} />}
                         </Grid>
 
                         <Grid item xs={mdDown ? 8 : 10} ml={smDown && -2} mt={smDown && -2} style={{ width: '92%' }}>
-                            <CardMultiTasks multiTasksData={filteredMultiTasks} loading={loading} page={currentPage} />
+                            {isConnected ? (
+                                <CardMultiTasks multiTasksData={filteredMultiTasks} loading={loading} page={currentPage} />
+                            ) : (
+                                <div style={{ textAlign: 'center' }}>
+                                    <img src={'/static/images/user/profile/astronaut.svg'} alt={'Connect Wallet'} />
+                                    <p></p>
+                                    <p>Connect Wallet</p>
+                                    <p>You need to connect your wallet to continue</p>
+                                </div>
+                            )}
                         </Grid>
                     </Grid>
                 </Box>
 
                 <Box display={'flex'} justifyContent={'center'} alignItems={'center'} mt={10}>
-                    <Pagination numPages={totalPages} />
+                    {isConnected && <Pagination numPages={totalPages} />}
                 </Box>
             </Box>
         </>

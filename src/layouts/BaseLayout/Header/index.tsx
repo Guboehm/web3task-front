@@ -21,12 +21,12 @@ import HeaderToggleTheme from "./Buttons/ToggleTheme";
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
-        height: ${theme.header.height};
+        height: 80px;
         color: ${theme.header.textColor};
         padding: ${theme.spacing(0, 2)};
         right: 0;
         z-index: 6;
-        background-color: ${alpha(theme.header.background, 0.95)};
+        background-color: #131313;
         backdrop-filter: blur(3px);
         justify-content: space-between;
         width: 100%;
@@ -40,7 +40,7 @@ const HeaderWrapper = styled(Box)(
 function Header({ data }) {
   const theme = useTheme();
   const logoImage = "/static/images/logo/logo-" + theme.palette.mode + ".svg";
-  const  smDown  = useMediaQuery(theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const {
     activeConnector,
     connect,
@@ -88,26 +88,26 @@ function Header({ data }) {
             <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               <Grid item xs={1}>
               </Grid>
-              <Grid item xs={7}>          
+              <Grid item xs={7}>
                 {/* <HeaderSearch /> */}
               </Grid>
               <Grid item xs={4}>
                 <Box sx={{ mr: 1 }}>
                   <Box sx={{ mx: 0.5 }} component="span" display={"flex"} flexDirection={"row-reverse"}>
                     <HeaderUserbox disconnect={disconnect} account={data} />
-                    <HeaderNotifications />
-                    <HeaderToggleTheme />
-                  </Box>                  
+                    {/* <HeaderNotifications /> */}
+                    {/* <HeaderToggleTheme /> */}
+                  </Box>
                 </Box>
               </Grid>
-            </Grid>                                      
+            </Grid>
           </>
         ) : (
           <>
             <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               <Grid item xs={1}>
               </Grid>
-              <Grid item xs={7}>          
+              <Grid item xs={7}>
                 {/* <HeaderSearch /> */}
               </Grid>
               <Grid item xs={4}>
@@ -119,12 +119,12 @@ function Header({ data }) {
                       connect={connect}
                       isConnecting={isConnecting}
                       pendingConnector={pendingConnector} />
-                    <HeaderNotifications />
-                    <HeaderToggleTheme />                    
+                    {/* <HeaderNotifications /> */}
+                    {/* <HeaderToggleTheme /> */}
                   </Box>
                 </Box>
               </Grid>
-            </Grid>              
+            </Grid>
           </>
         )}
       </>

@@ -73,9 +73,9 @@ function stringToColor(string: string) {
     }
     /* eslint-enable no-bitwise */
 
-    return color;
+    return "#5B149D";
   }
-  return "#FFFF00"
+  return "#5B149D"
 }
 
 const MuiAvatar = styled(Avatar)(
@@ -156,22 +156,15 @@ function HeaderUserbox({ disconnect, account }) {
         onClose={handleClose}
         open={isOpen}
         anchorOrigin={{
-          vertical: "top",
+          vertical: "bottom",
           horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
           horizontal: "right",
         }}
+        style={{ marginTop: '5px' }}
       >
-        <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <MuiAvatar variant="rounded" {...stringAvatar(shortenAddressFromUser())} />
-          <UserBoxText>
-            <UserBoxDescription variant="body1">
-              {roleName === "" ? "Empty RoleName" : roleName}
-            </UserBoxDescription>
-          </UserBoxText>
-        </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
         <List sx={{ p: 1 }} component="nav">
           <ListItem button to="/users/profile" component={NavLink}>

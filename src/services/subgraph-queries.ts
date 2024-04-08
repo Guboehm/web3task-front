@@ -1,49 +1,55 @@
-const axios = require("axios");
-require('dotenv').config({ path: __dirname + '/../../.env' });
+import axios, { AxiosResponse } from 'axios';
+// import dotenv from 'dotenv';
 
-const {ENDPOINT_URL, AUTHORIZATION_kEY} =
-	process.env;
+// dotenv.config({ path: __dirname + '/../../.env' });
+interface GraphQLResponse {
+  data?: any;
+  errors?: any;
+}
+class GraphQLService {
+  private endpoint: string;
+  private headers: { [key: string]: string };
 
-async function main() {
- const endpoint = process.env.ENDPOINT_URL;
- const headers = {
-  "content-type": "application/json",
-  Authorization: process.env.AUTHORIZATION_kEY,
- };
+  constructor() {
+    this.endpoint = process.env.REACT_APP_ENDPOINT_URL || '';
+    this.headers = {
+      "content-type": "application",
+      Authorization: process.env.REACT_APP_AUTHORIZATION_KEY || '',
+    };
+  }
 
-  //Example of query
-  const graphqlQuery = {
-    operationName: "AuthorizedPersonnelsQuery",
-    query: `query {
-            authorizePersonnels {
-              roleId
-              isAuthorized
-              authorizedAddress
-            }
-          }`,
-    variables: {},
-  };
+  async getTasks(variables: { [key: string]: any } = {}): Promise<GraphQLResponse> {
+    const operationName = "GetTasksQuery";
+    const query = `query {
+      taskCreateds(orderBy: blockTimestamp, orderDirection: desc) {
+        assignee
+        creator
+        endDate
+        id
+        reward
+        }
+      }`;
 
-  const config = {
-    url: endpoint,
-    method: "post",
-    headers: headers,
-    data: graphqlQuery,
-  };
+    const graphqlQuery = {
+      operationName,
+      query,
+      variables,
+    };
 
-  try {
-    const response = await axios(config);
-    console.log(JSON.stringify(response.data, null, 2));
-    console.log(response.data.errors);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
+    const config = {
+      url: this.endpoint,
+      method: "post",
+      headers: this.headers,
+      data: graphqlQuery,
+    };
+
+    try {
+      const response: AxiosResponse = await axios(config);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to execute query: ${error.message}`);
+    }
   }
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+export default GraphQLService;

@@ -16,33 +16,19 @@ import {
   Typography,
 } from "@mui/material";
 
-import InboxTwoToneIcon from "@mui/icons-material/InboxTwoTone";
 import { styled } from "@mui/material/styles";
-import ExpandMoreTwoToneIcon from "@mui/icons-material/ExpandMoreTwoTone";
-import AccountBoxTwoToneIcon from "@mui/icons-material/AccountBoxTwoTone";
-import LockOpenTwoToneIcon from "@mui/icons-material/LockOpenTwoTone";
-import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
-import MessageIcon from "@mui/icons-material/Message";
-import { useConnect } from 'wagmi';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
         padding-left: ${theme.spacing(1)};
         padding-right: ${theme.spacing(1)};
-`
-);
-
-const MenuUserBox = styled(Box)(
-  ({ theme }) => `
-        background: ${theme.colors.alpha.black[5]};
-        padding: ${theme.spacing(2)};
+        background-color: #5B149D;
 `
 );
 
 const UserBoxText = styled(Box)(
   ({ theme }) => `
-        text-align: left;
-        padding-left: ${theme.spacing(1)};
+        text-align: center;
 `
 );
 
@@ -51,12 +37,6 @@ const UserBoxLabel = styled(Typography)(
         font-weight: ${theme.typography.fontWeightBold};
         color: ${theme.palette.secondary.main};
         display: block;
-`
-);
-
-const UserBoxDescription = styled(Typography)(
-  ({ theme }) => `
-        color: ${lighten(theme.palette.secondary.main, 0.5)}
 `
 );
 
@@ -77,10 +57,9 @@ function HeaderUserConnect({ connectors, activeConnector, connect, isConnecting,
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen} sx={{ ml: 1 }}>
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">Connect wallet</UserBoxLabel>
+            <UserBoxLabel fontSize="16px" >Connect wallet</UserBoxLabel>
           </UserBoxText>
         </Hidden>
-        <ExpandMoreTwoToneIcon sx={{ mr: 3 }} />
       </UserBoxButton>
       <Popover
         sx={{ mr: 1 }}
@@ -88,13 +67,14 @@ function HeaderUserConnect({ connectors, activeConnector, connect, isConnecting,
         onClose={handleClose}
         open={isOpen}
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'right'
         }}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right'
         }}
+        style={{ marginTop: '5px' }}
       >
         <List sx={{ p: 1 }} component="nav">
           {
@@ -106,16 +86,6 @@ function HeaderUserConnect({ connectors, activeConnector, connect, isConnecting,
               ))
           }
         </List>
-
-        {/* <Hidden smDown> */}
-        <Divider />
-        <Box sx={{ mr: 1 }}>
-          <Button color="primary" >
-            <MessageIcon />
-            Contact us to add new network.
-          </Button>
-        </Box>
-        {/* </Hidden> */}
       </Popover>
     </>
   );

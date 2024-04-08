@@ -27,6 +27,7 @@ const BaseLayout: FC<BaseLayoutProps> = () => {
     <>
       <Box
         sx={{
+          backgroundColor: '#131313',
           flex: 1,
           height: "100%",
 
@@ -85,8 +86,8 @@ const BaseLayout: FC<BaseLayoutProps> = () => {
           </Box>
         )
         }
-        <Divider />
-        <Footer />
+        {/* <Divider /> */}
+        {/* <Footer /> */}
       </Box>
     </>
   );
