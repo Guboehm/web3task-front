@@ -69,11 +69,32 @@ const HomeTasks = () => {
                             {isConnected ? (
                                 <CardMultiTasks multiTasksData={filteredMultiTasks} loading={loading} page={currentPage} />
                             ) : (
-                                <div style={{ textAlign: 'center' }}>
-                                    <img src={'/static/images/user/profile/astronaut.svg'} alt={'Connect Wallet'} />
-                                    <p></p>
-                                    <p>Connect Wallet</p>
-                                    <p>You need to connect your wallet to continue</p>
+                                <div style={{ textAlign: 'center', marginTop: '200px' }}>
+                                    <img src={'/static/images/user/profile/wallet.svg'} alt={'Connect Wallet'} />
+                                    <p style={{
+                                        color: '#FFF',
+                                        textAlign: 'center',
+                                        fontFamily: 'Inter',
+                                        fontSize: '65px',
+                                        fontStyle: 'normal',
+                                        fontWeight: 700,
+                                        marginBottom: '5px',
+                                        marginTop: '5px'
+
+                                    }}>
+                                        Connect Wallet
+                                    </p>
+                                    <p style={{
+                                        color: '#FFF',
+                                        textAlign: 'center',
+                                        fontFamily: 'Inter',
+                                        fontSize: '21px',
+                                        fontStyle: 'normal',
+                                        fontWeight: 700,
+                                        marginTop: '5px'
+                                    }}>
+                                        You need to connect your wallet to continue
+                                    </p>
                                 </div>
                             )}
                         </Grid>
