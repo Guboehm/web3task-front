@@ -33,9 +33,7 @@ export function useTaskService() {
 				userAddress()
 			);
 
-			const isAssignee = (assignee == userAddress())
-
-			if (!hasRole || !isAssignee) {
+			if (!hasRole) {
 				_unauthorizeUserError(functionName);
 			} else {
 				await tasksManagerContract.startTask(id, authorizedRoles);

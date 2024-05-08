@@ -21,22 +21,16 @@ const HomeTasks = () => {
     const [maxTasks, setMaxTasks] = useState<number>(20);
     const [minimumTasks, setMinimumTasks] = useState<number>(1);
     const { currentPage, Pagination } = usePagination();
-    const { isConnected } = useConnect();
+    const { isConnected, status, isDisconnected } = useConnect();
 
-    const fetchData = async () => {
-        try {
-            await handleCountTasks().then(count => {
-                const total = (parseInt(count) / tasksPerPage)
-                if ((parseInt(count) % tasksPerPage) > 0)
-                    setTotalPages(Math.floor(total) + 1)
-                else
-                    setTotalPages(total)
-            });
-            await handleMultiTask(minimumTasks, maxTasks, false);
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-        }
-    };
+const fetchData = async () => {
+    try {
+        const count = await taskService.countTasks();
+        await handleMultiTask(minimumTasks, parseInt(count), false);
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+    }
+};
 
     const maxReward = multiTasksData?.reduce((acc, curr) => {
         const parsedReward = Number.parseFloat(curr.reward)
@@ -47,10 +41,8 @@ const HomeTasks = () => {
     const filteredMultiTasks = filterTasks(multiTasksData || [])
 
     useEffect(() => {
-        setMinimumTasks(((currentPage - 1) * tasksPerPage) + 1);
-        setMaxTasks(currentPage * tasksPerPage);
         fetchData();
-    }, [currentPage, totalPages, minimumTasks, maxTasks]);
+    }, []);
 
     return (
         <>
@@ -66,9 +58,7 @@ const HomeTasks = () => {
                         </Grid>
 
                         <Grid item xs={mdDown ? 8 : 10} ml={smDown && -2} mt={smDown && -2} style={{ width: '92%' }}>
-                            {isConnected ? (
-                                <CardMultiTasks multiTasksData={filteredMultiTasks} loading={loading} page={currentPage} />
-                            ) : (
+                            { isDisconnected && status === 'disconnected' && (
                                 <div style={{ textAlign: 'center', marginTop: '200px' }}>
                                     <img src={'/static/images/user/profile/wallet.svg'} alt={'Connect Wallet'} />
                                     <p style={{
@@ -97,13 +87,17 @@ const HomeTasks = () => {
                                     </p>
                                 </div>
                             )}
+
+                            {isConnected && status === 'connected' && (
+                                <CardMultiTasks multiTasksData={filteredMultiTasks} loading={loading} page={currentPage} />
+                            )}
                         </Grid>
                     </Grid>
                 </Box>
 
-                <Box display={'flex'} justifyContent={'center'} alignItems={'center'} mt={10}>
+                {/* <Box display={'flex'} justifyContent={'center'} alignItems={'center'} mt={10}>
                     {isConnected && <Pagination numPages={totalPages} />}
-                </Box>
+                </Box> */}
             </Box>
         </>
     )

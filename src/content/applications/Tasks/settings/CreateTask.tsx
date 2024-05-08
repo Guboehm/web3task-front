@@ -81,8 +81,6 @@ const CreateTask = ({ data }) => {
     }),
     assignee: yup.string().test({
       test(value, ctx) {
-        if (value.length != 42 || value.slice(0,2) != "0x")
-          return ctx.createError({ message: 'Invalid address.' });
         return true;
       }
     }),
@@ -96,8 +94,8 @@ const CreateTask = ({ data }) => {
     }),
     description: yup.string().required('Mandatory field.').test({
       test(value, ctx) {
-        if (value.length < 100)
-          return ctx.createError({ message: 'Invalid description. Minimum 100 characters' });
+        if (value.length < 10)
+          return ctx.createError({ message: 'Invalid description. Minimum 10 characters' });
         return true;
       }
     }),
