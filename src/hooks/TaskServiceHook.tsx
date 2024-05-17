@@ -3,7 +3,6 @@ import { Task, TaskStatus, TaskFront } from 'src/models/task';
 import { useWeb3Utils } from 'src/hooks/Web3UtilsHook';
 import { useSnackBar } from 'src/contexts/SnackBarContext';
 import { AlertColor } from '@mui/material/Alert';
-import GraphQLService from 'src/services/subgraph-queries';
 
 /**
  * Interface for the Task Service, defining methods to interact with tasks.
@@ -36,9 +35,7 @@ export const useTaskServiceHook = (task: TaskService) => {
     const [countUserTasks, setCountUserTasks] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const { shortenAddressFromAddress } = useWeb3Utils();
     const { showSnackBar } = useSnackBar();
-    const graphService = new GraphQLService();
 
     const handleSnackbar = (message: string, color: AlertColor) => {
         showSnackBar(message, color)
@@ -185,14 +182,8 @@ export const useTaskServiceHook = (task: TaskService) => {
             setLoading(true);
             setError(null);
 
-            try {
-                const result: any = await graphService.getTasks();
-                multiTask = processResult(result);
-            } catch (error) {
-                console.error('Error when calling graphService.getTasks', error);
-                const result: any = await task.getMultiTasks(start, end, isUserProfile);
-                multiTask = processResult(result);
-            }
+            const result: any = await task.getMultiTasks(start, end, isUserProfile);
+            multiTask = processResult(result);
 
             setMultiTasksData(multiTask);
         } catch (error) {

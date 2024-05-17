@@ -94,10 +94,6 @@ const fetchData = async () => {
                         </Grid>
                     </Grid>
                 </Box>
-
-                {/* <Box display={'flex'} justifyContent={'center'} alignItems={'center'} mt={10}>
-                    {isConnected && <Pagination numPages={totalPages} />}
-                </Box> */}
             </Box>
         </>
     )

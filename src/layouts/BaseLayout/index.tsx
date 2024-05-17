@@ -86,8 +86,6 @@ const BaseLayout: FC<BaseLayoutProps> = () => {
           </Box>
         )
         }
-        {/* <Divider /> */}
-        {/* <Footer /> */}
       </Box>
     </>
   );

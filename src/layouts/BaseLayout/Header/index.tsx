@@ -89,14 +89,11 @@ function Header({ data }) {
               <Grid item xs={1}>
               </Grid>
               <Grid item xs={7}>
-                {/* <HeaderSearch /> */}
               </Grid>
               <Grid item xs={4}>
                 <Box sx={{ mr: 1 }}>
                   <Box sx={{ mx: 0.5 }} component="span" display={"flex"} flexDirection={"row-reverse"}>
                     <HeaderUserbox disconnect={disconnect} account={data} />
-                    {/* <HeaderNotifications /> */}
-                    {/* <HeaderToggleTheme /> */}
                   </Box>
                 </Box>
               </Grid>
@@ -119,8 +116,6 @@ function Header({ data }) {
                       connect={connect}
                       isConnecting={isConnecting}
                       pendingConnector={pendingConnector} />
-                    {/* <HeaderNotifications /> */}
-                    {/* <HeaderToggleTheme /> */}
                   </Box>
                 </Box>
               </Grid>

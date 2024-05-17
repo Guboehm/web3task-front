@@ -45,21 +45,7 @@ const DetailsTask = () => {
                                         <Box width={smDown ? '100%' : 709} mt={smDown ? 2 : 0}>
                                             <CardTasks taskId={taskId} taskData={taskData} loading={loading} />
 
-                                            <Box mt={4} width={smDown ? '100%' : 679} display={'flex'} flexDirection={smDown ? 'column' : 'row'} justifyContent={smDown ? 'center' : 'space-between'} alignItems={'center'}>
-                                                {/* <Card sx={{ width: smDown ? '100%' : 192, height: 119, justifyContent: 'center', marginBottom: smDown ? '16px' : '0', ml: smDown ? 10 : 0 }}>
-                                                    <CardContent>
-                                                        <Typography gutterBottom variant="h4" component="div" textAlign={'center'}>
-                                                            Status
-                                                        </Typography>
-                                                        <Divider variant="fullWidth" />
-                                                        <Typography variant="h6" textAlign={'center'} mt={1}>
-                                                            {taskData ? taskData.status : 'Created'}
-                                                        </Typography>
-                                                    </CardContent>
-                                                </Card> */}
-
-
-                                            </Box>
+                                            <Box mt={4} width={smDown ? '100%' : 679} display={'flex'} flexDirection={smDown ? 'column' : 'row'} justifyContent={smDown ? 'center' : 'space-between'} alignItems={'center'}/>
 
                                             <Box mt={4} width={smDown ? '100%' : 679} display={'flex'} flexDirection={smDown ? 'column' : 'row'} justifyContent={smDown ? 'center' : 'space-between'} alignItems={'center'}>
                                                 <Card sx={{ width: '100%', height: 200, justifyContent: smDown ? 'center' : 'left', ml: smDown ? 10 : 0 }}>
